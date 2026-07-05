@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Halime' Sultan Turkish Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1C1C1C;
+      --surface:   #222222;
+      --surface2:  #2A2A2A;
+      --red:       #B22222;
+      --red-dim:   rgba(178,34,34,0.14);
+      --gold:      #C9A227;
+      --gold-dim:  rgba(201,162,39,0.12);
+      --gold-mid:  rgba(201,162,39,0.35);
+      --beige:     #F5F0E8;
+      --white:     #FFFFFF;
+      --text:      #EDE8DF;
+      --muted:     #7A7060;
+      --border:    rgba(201,162,39,0.13);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 5%; }
+
+    /* ── MENU HEADER ── */
+    .menu-header {
+      background: linear-gradient(to bottom, #0e0e0e, var(--bg));
+      text-align: center;
+      padding: 60px 5% 50px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 120%, rgba(178,34,34,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .menu-header-back {
+      position: absolute; top: 20px; left: 5%;
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .menu-header-back:hover { color: var(--gold); }
+    .menu-header-logo { width: 80px; border-radius: 50%; margin-bottom: 1.2rem; box-shadow: 0 0 30px rgba(201,162,39,0.2); }
+    .menu-header-tag { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; opacity: 0.8; }
+    .menu-header-name { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3.5rem); font-weight: 700; color: var(--white); line-height: 1.1; }
+    .menu-header-sub { font-family: 'Playfair Display', serif; font-size: clamp(0.9rem,2vw,1.15rem); color: var(--gold); font-style: italic; margin-top: 0.4rem; }
+    .menu-header-divider { margin: 1.4rem auto 0; }
+    .menu-header-tagline { font-family: 'Playfair Display', serif; font-size: clamp(0.85rem,1.6vw,1.05rem); color: rgba(245,240,232,0.45); font-style: italic; letter-spacing: 0.5px; margin-top: 1rem; }
+
+    /* ── OTTOMAN DIVIDER ── */
+    .ottoman-divider {
+      display: flex; align-items: center; gap: 14px; width: fit-content; margin: 0 auto;
+    }
+    .ottoman-divider::before, .ottoman-divider::after {
+      content: ''; width: 55px; height: 1px;
+    }
+    .ottoman-divider::before { background: linear-gradient(to right, transparent, rgba(201,162,39,0.55)); }
+    .ottoman-divider::after  { background: linear-gradient(to left,  transparent, rgba(201,162,39,0.55)); }
+    .ottoman-gem { color: var(--gold); font-size: 11px; letter-spacing: 5px; opacity: 0.75; }
+
+    /* ── STICKY CATEGORY NAV ── */
+    .cat-nav {
+      position: sticky; top: 0; z-index: 90;
+      background: rgba(18,18,18,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-nav::-webkit-scrollbar { display: none; }
+    .cat-nav-inner {
+      display: flex; align-items: stretch;
+      max-width: 1240px; margin: 0 auto;
+      padding: 0 5%;
+      white-space: nowrap;
+    }
+    .cat-nav-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 16px 18px; font-size: 0.76rem;
+      letter-spacing: 1px; text-transform: uppercase; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .cat-nav-item:hover { color: var(--text); }
+    .cat-nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .cat-nav-icon { font-size: 1rem; }
+
+    /* ── SECTION BANNER ── */
+    .menu-section { padding: 0 0 90px; }
+    .section-banner {
+      height: 290px; position: relative; overflow: hidden;
+      margin-bottom: 60px;
+    }
+    .section-banner-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transform-origin: center;
+      transition: transform 8s ease;
+    }
+    .menu-section:hover .section-banner-bg { transform: scale(1.03); }
+    .section-banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(18,18,18,0.7) 60%, var(--bg) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding-bottom: 20px;
+    }
+    .section-icon { font-size: 2.4rem; margin-bottom: 0.6rem; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6)); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700; color: var(--white);
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── SECTION INTRO ── */
+    .section-intro { text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 1.7; max-width: 560px; margin: 0 auto 3rem; font-style: italic; }
+
+    /* ── DISH GRID (Standard) ── */
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* ── DISH CARD ── */
+    .dish-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative;
+    }
+    .dish-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border-color: rgba(201,162,39,0.38);
+    }
+    .dish-photo {
+      height: 200px; width: 100%;
+      background: var(--surface2);
+      background-size: cover; background-position: center;
+      position: relative; flex-shrink: 0;
+    }
+    .dish-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    }
+    .dish-body { padding: 1.4rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .dish-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .badge {
+      font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 600; padding: 3px 10px; border-radius: 20px;
+    }
+    .badge-chef  { background: rgba(201,162,39,0.18); color: var(--gold); border: 1px solid rgba(201,162,39,0.3); }
+    .badge-pop   { background: var(--red-dim); color: #e06060; border: 1px solid rgba(178,34,34,0.3); }
+    .badge-order { background: rgba(80,120,180,0.15); color: #8ab4f8; border: 1px solid rgba(80,120,180,0.3); }
+    .badge-veg   { background: rgba(60,160,80,0.12); color: #6abf7a; border: 1px solid rgba(60,160,80,0.25); }
+    .badge-share { background: rgba(160,100,200,0.12); color: #b07ed4; border: 1px solid rgba(160,100,200,0.25); }
+    .badge-group { background: rgba(220,140,30,0.15); color: #d4a040; border: 1px solid rgba(220,140,30,0.3); }
+    .badge-free  { background: rgba(60,160,80,0.12); color: #6abf7a; border: 1px solid rgba(60,160,80,0.25); }
+
+    .dish-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; line-height: 1.3; }
+    .dish-desc { font-size: 0.79rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.2rem; }
+    .dish-footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; margin-top: auto; }
+    .dish-price { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+    .dish-price-note { font-size: 0.72rem; color: var(--muted); font-style: italic; }
+    .dish-price-multi { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .dish-price-multi .pm-row { font-size: 0.8rem; color: var(--muted); }
+    .dish-price-multi .pm-row strong { color: var(--gold); font-family: 'Playfair Display', serif; margin-left: 5px; font-size: 0.95rem; }
+
+    /* ── FEATURED CARDS (Chef's Picks) ── */
+    .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .featured-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      display: flex; flex-direction: row;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .featured-card:hover { transform: translateY(-5px); box-shadow: 0 22px 55px rgba(0,0,0,0.65); border-color: rgba(201,162,39,0.45); }
+    .featured-photo { width: 220px; flex-shrink: 0; background-size: cover; background-position: center; position: relative; }
+    .featured-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--surface) 100%); }
+    .featured-body { padding: 1.8rem 1.6rem; display: flex; flex-direction: column; justify-content: center; flex: 1; }
+    .featured-body .dish-name { font-size: 1.2rem; margin-bottom: 0.6rem; }
+    .featured-body .dish-desc { margin-bottom: 1.3rem; font-size: 0.82rem; }
+    .featured-body .dish-price { font-size: 1.35rem; }
+    .featured-body .dish-badges { margin-bottom: 0.7rem; }
+
+    /* ── 2-COL GRID (Platters, Wraps, Seafood) ── */
+    .dish-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .dish-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    /* ── PIDE LIST LAYOUT ── */
+    .pide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .pide-row {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: background .2s, border-color .2s;
+    }
+    .pide-row:hover { background: var(--surface2); border-color: rgba(201,162,39,0.3); }
+    .pide-row-info { flex: 1; }
+    .pide-row-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 0.25rem; }
+    .pide-row-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+    .pide-row-prices { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+    .pide-price-plain { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+    .pide-price-cheese { font-size: 0.75rem; color: var(--muted); }
+    .pide-price-cheese strong { color: rgba(201,162,39,0.7); }
+
+    /* ── DRINKS CARDS ── */
+    .drink-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .drink-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .drink-card:hover { transform: translateY(-5px); box-shadow: 0 18px 45px rgba(0,0,0,0.55); }
+    .drink-photo { height: 220px; background-size: cover; background-position: center; }
+    .drink-body { padding: 1.5rem 1.6rem; }
+
+    /* ── SECTION GOLD LINE ── */
+    .section-line {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
+      margin: 90px 0 0;
+    }
+
+    /* ── FOOTER ── */
+    .menu-footer {
+      background: #0e0e0e;
+      border-top: 1px solid var(--border);
+      padding: 50px 5%;
+      text-align: center;
+    }
+    .menu-footer-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 0.4rem; }
+    .menu-footer-sub  { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.8rem; }
+    .menu-footer-contacts { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .menu-footer-contact { font-size: 0.85rem; color: var(--muted); }
+    .menu-footer-contact a { color: var(--gold); text-decoration: none; }
+    .menu-footer-contact a:hover { text-decoration: underline; }
+    .menu-footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.18); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,162,39,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 46px; border-radius: 50%; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold); line-height: 1.2; }
+    .nav-logo-text span { display: block; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 300; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; opacity: 0.75; transition: opacity .2s, color .2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+    .nav-order-btn {
+      background: var(--red); color: #fff; border: none; padding: 10px 22px;
+      border-radius: 4px; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase;
+      font-weight: 600; cursor: pointer; transition: background .2s; text-decoration: none;
+    }
+    .nav-order-btn:hover { background: #a01f24; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 25px; height: 2px; background: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 100%),
+        url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1600&q=80') center/cover no-repeat;
+      padding: 0 5%;
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-logo { width: 180px; border-radius: 50%; margin-bottom: 1.5rem; box-shadow: 0 0 40px rgba(201,162,39,0.3); }
+    .hero-tag { font-size: 0.72rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 1rem; color: #fff; }
+    .hero-title em { color: var(--gold); font-style: normal; }
+    .hero-sub { color: #999; font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--red); color: #fff; border: none; padding: 14px 32px; border-radius: 4px; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background .2s; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { background: #8a1a1e; }
+    .btn-outline { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); padding: 14px 32px; border-radius: 4px; font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block; }
+    .btn-outline:hover { background: var(--gold); color: #000; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .dish-grid { grid-template-columns: repeat(2, 1fr); }
+      .dish-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-order-btn { display: none; }
+      .hamburger { display: flex; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      /* 2 cards per row on mobile */
+      .dish-grid, .dish-grid-2, .drink-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .pide-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+
+      /* Compact card sizes */
+      .dish-photo { height: 120px; }
+      .dish-body { padding: 0.8rem 0.9rem 1rem; }
+      .dish-name { font-size: 0.88rem; margin-bottom: 0.3rem; }
+      .dish-desc { font-size: 0.72rem; line-height: 1.55; margin-bottom: 0.7rem; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .dish-price { font-size: 1rem; }
+      .dish-badges { gap: 0.3rem; margin-bottom: 0.4rem; }
+      .badge { font-size: 0.55rem; padding: 2px 7px; }
+      .dish-price-multi .pm-row { font-size: 0.7rem; }
+      .dish-price-multi .pm-row strong { font-size: 0.85rem; }
+
+      /* Featured cards: stack image on top */
+      .featured-card { flex-direction: column; }
+      .featured-photo { width: 100%; height: 120px; }
+      .featured-photo::after { background: linear-gradient(to bottom, transparent 50%, var(--surface) 100%); }
+      .featured-body { padding: 0.8rem 0.9rem 1rem; }
+      .featured-body .dish-name { font-size: 0.88rem; margin-bottom: 0.3rem; }
+      .featured-body .dish-desc { font-size: 0.72rem; margin-bottom: 0.7rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .featured-body .dish-price { font-size: 1rem; }
+
+      /* Drink cards */
+      .drink-photo { height: 140px; }
+      .drink-body { padding: 1rem 1.1rem; }
+
+      .section-banner { height: 180px; }
+      .section-title { font-size: 1.5rem; }
+      .section-icon { font-size: 1.8rem; }
+      .section-intro { font-size: 0.8rem; margin-bottom: 1.8rem; }
+      .container { padding: 0 3%; }
+    }
+    @media (max-width: 480px) {
+      .cat-nav-item { padding: 12px 10px; font-size: 0.65rem; gap: 4px; }
+      .cat-nav-icon { font-size: 0.85rem; }
+      /* 3 cards per row on very small screens for starters/drinks */
+      .dish-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="sultan-logo.png" alt="Sultan Logo" onerror="this.style.display='none'" />
+    <div class="nav-logo-text">
+      Halime' Sultan
+      <span>Turkish Restaurant</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html" class="active">Menu</a></li>
+    <li><a href="index.html#locations">Find Us</a></li>
+    <li><a href="index.html#reserve">Reserve</a></li>
+  </ul>
+  <a href="index.html#reserve" class="nav-order-btn">Order Now</a>
+  <div class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="sultan-logo.png" alt="Halime Sultan" onerror="this.src=''" />
+    <p class="hero-tag">Authentic Turkish Cuisine · Mauritius</p>
+    <h1 class="hero-title">Where Every Meal is a <em>Journey to Istanbul</em></h1>
+    <p class="hero-sub">Handcrafted kebabs, traditional pides, and slow-grilled meats — served with warmth at two locations across Mauritius.</p>
+    <div class="hero-btns">
+      <a href="#chef" class="btn-primary">Explore the Menu</a>
+      <a href="index.html#locations" class="btn-outline">Our Locations</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── STICKY NAV ── -->
+<nav class="cat-nav" id="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="#chef"     class="cat-nav-item active"><span class="cat-nav-icon">⭐</span>Chef's Picks</a>
+    <a href="#kebabs"   class="cat-nav-item"><span class="cat-nav-icon">🔥</span>Kebabs</a>
+    <a href="#platters" class="cat-nav-item"><span class="cat-nav-icon">🍖</span>Platters</a>
+    <a href="#wraps"    class="cat-nav-item"><span class="cat-nav-icon">🌯</span>Wraps</a>
+    <a href="#pide"     class="cat-nav-item"><span class="cat-nav-icon">🍕</span>Pide</a>
+    <a href="#seafood"  class="cat-nav-item"><span class="cat-nav-icon">🐟</span>Seafood</a>
+    <a href="#starters" class="cat-nav-item"><span class="cat-nav-icon">🥗</span>Starters</a>
+    <a href="#salads"   class="cat-nav-item"><span class="cat-nav-icon">🥙</span>Salads</a>
+    <a href="#specials" class="cat-nav-item"><span class="cat-nav-icon">🍲</span>Specialties</a>
+    <a href="#drinks"   class="cat-nav-item"><span class="cat-nav-icon">🥤</span>Drinks</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  ⭐  CHEF'S RECOMMENDATIONS                  -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="chef" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="chef"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">⭐</div>
+      <h2 class="section-title">Chef's Recommendations</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">Dishes closest to our chef's heart — crafted from tradition, elevated for your table.</p>
+    <div class="featured-grid">
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="platter"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-group">Group · 3–5 pax</span><span class="badge badge-chef">Signature</span></div>
+          <div class="dish-name">Sultan Platter Signature</div>
+          <div class="dish-desc">Chicken Wings, Adana, Lamb Shish, Mince Lamb Kebab, Grilled Eggplant, Grilled Bell Pepper, Grilled Tomatoes & Lahmacun — served with Bulgur, Onion Salad, Chips, Bread & Hot Chili Sauce.</div>
+          <div class="dish-footer">
+            <div class="dish-price">Rs 650 <span class="dish-price-note">/ person</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="kebab1"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span><span class="badge badge-pop">Popular</span></div>
+          <div class="dish-name">Ezmeli Kebab</div>
+          <div class="dish-desc">Tender lamb with Grilled Bell Pepper, rich Sauce, Butter, Tomato & freshly baked Bread — one of our most beloved dishes.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 725</div></div>
+        </div>
+      </article>
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="kebab2"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-pop">Popular</span></div>
+          <div class="dish-name">Adana Kebab</div>
+          <div class="dish-desc">Special Turkish Lamb Kebab served with authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 575</div></div>
+        </div>
+      </article>
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="special1"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Iskender</div>
+          <div class="dish-desc">A Turkish classic — tender Lamb layered with rich Sauce, creamy Yogurt & freshly baked Bread. A dish of legend.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 699</div></div>
+        </div>
+      </article>
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="kebab3"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Beyti Kebab</div>
+          <div class="dish-desc">Grilled or Skewered lamb, served with Lamb Sauce, steamed Rice & Yogurt. A refined Turkish favourite.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 599</div></div>
+        </div>
+      </article>
+
+      <article class="featured-card">
+        <div class="featured-photo" data-img="special2"></div>
+        <div class="featured-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Ali Nazik Chicken</div>
+          <div class="dish-desc">Roasted Eggplant purée, Yogurt, Sauce & Butter — a pillar of Ottoman cuisine. Available for 1 or 2 persons.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">1 person <strong>Rs 599</strong></div>
+              <div class="pm-row">2 persons <strong>Rs 899</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🔥  TURKISH KEBABS                          -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="kebabs" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="kebabs"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🔥</div>
+      <h2 class="section-title">Turkish Kebabs</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">Slow-grilled over charcoal flame using century-old Turkish recipes. Every skewer tells a story.</p>
+    <div class="dish-grid">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-pop">Popular</span></div>
+          <div class="dish-name">Adana Kebab</div>
+          <div class="dish-desc">Special Turkish Lamb Kebab served with authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 575</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Lamb Shish</div>
+          <div class="dish-desc">Grilled Lamb Meat served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 700</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chicken Shish</div>
+          <div class="dish-desc">Grilled Chicken Breasts served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 475</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-pop">Popular</span></div>
+          <div class="dish-name">Chicken Wings</div>
+          <div class="dish-desc">Grilled Chicken Wings served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 450</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chicken Chops</div>
+          <div class="dish-desc">Grilled Boneless Chicken Hips served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 550</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab3"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Kofte</div>
+          <div class="dish-desc">Grilled Beef Meat Ball served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 525</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Cheese Kofte</div>
+          <div class="dish-desc">Beef Meat & Mozzarella Cheese served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 650</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Patlican Kebab</div>
+          <div class="dish-desc">Grilled Tomatoes, Lamb & Eggplant with French Fries, Rice & Bread.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 599</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab3"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Ezmeli Kebab</div>
+          <div class="dish-desc">Lamb, Grilled Bell Pepper, Sauce, Butter, Tomato & Bread.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 725</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Beyti Kebab</div>
+          <div class="dish-desc">Grilled or Skewered, served with Lamb Sauce, Rice & Yogurt.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 599</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🍖  FAMILY PLATTERS                         -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="platters" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="platters"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🍖</div>
+      <h2 class="section-title">Family Platters</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">Generously portioned feasts designed for sharing — the more the merrier around our table.</p>
+    <div class="dish-grid dish-grid-2">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="platter"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-chef">Signature</span><span class="badge badge-group">3–5 Persons</span></div>
+          <div class="dish-name">Sultan Platter Signature</div>
+          <div class="dish-desc">Chicken Wings, Meat Balls Beef, Adana, Chicken Breast, Lamb Meat, Mince Lamb Kebab, Grilled Eggplant, Grilled Bell Pepper, Grilled Tomatoes & Lahmacun — served with Bulgur, Onion Salad, Chips & Bread.</div>
+          <div class="dish-footer">
+            <div class="dish-price">Rs 650 <span class="dish-price-note">/ person</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Sultan Mix Kebab</div>
+          <div class="dish-desc">Chicken Wings, Meat Balls Beef, Lamb Shish, Chicken Shish & Half Adana — served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 699</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Sultan Chicken Special</div>
+          <div class="dish-desc">Grilled Chicken Shish, Chicken Wings & Boneless Chicken Hip — served with Authentic Turkish Bulgur, Onion Salad, Chips, Bread, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 550</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-share">For 2</span></div>
+          <div class="dish-name">Sultan Chicken Special Platter</div>
+          <div class="dish-desc">For 2 Persons only — Chicken Lahmacun, Wings, Chicken Shish & Chicken Chops with Chips & Rice.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 1,149</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab3"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-share">1–2 Persons</span></div>
+          <div class="dish-name">Ahi Special</div>
+          <div class="dish-desc">Wrap Chicken Chops served with Authentic Turkish Bulgur & Special Mix Salad.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">1 person <strong>Rs 599</strong></div>
+              <div class="pm-row">2 persons <strong>Rs 899</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="special2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-order">Pre-Order · 1 Day</span><span class="badge badge-group">3 Persons</span></div>
+          <div class="dish-name">Guvec Chicken (3 Pax)</div>
+          <div class="dish-desc">Traditional Turkish clay pot slow-cooked chicken. Must Reserve & Pay 1 Day in Advance.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 1,750</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🌯  WRAPS                                   -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="wraps" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="wraps"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🌯</div>
+      <h2 class="section-title">Wraps</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="dish-grid dish-grid-2">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="wrap1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Adana Wrap</div>
+          <div class="dish-desc">Special Turkish Lamb Kebab served with Authentic Turkish Onion Salad, Chips, Bread & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 499</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="wrap2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chicken Wrap</div>
+          <div class="dish-desc">Wrap Chicken with Onion & Tomatoes, served with Chips, Biberiye & Hot Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 399</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab3"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Oven Wrap with Cheese — Lamb</div>
+          <div class="dish-desc">Warm oven wrap filled with Lamb Shish, Onion, Tomato & melted Cheese.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 599</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="wrap1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Oven Wrap with Cheese — Chicken</div>
+          <div class="dish-desc">Warm oven wrap filled with Chicken Shish, Onion & melted Cheese.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 499</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🍕  TURKISH PIDE & LAHMACUN                 -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="pide" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="pide"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🍕</div>
+      <h2 class="section-title">Pide & Lahmacun</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">Stone-baked Turkish flatbreads — the pride of Anatolian cuisine. Crisp on the outside, generous on the inside.</p>
+
+    <!-- Lahmacun & Turkish Pizza as full cards -->
+    <div class="dish-grid dish-grid-2" style="margin-bottom:1.5rem">
+      <article class="dish-card">
+        <div class="dish-photo" data-img="pide1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-pop">Popular</span></div>
+          <div class="dish-name">Lahmacun</div>
+          <div class="dish-desc">Minced Beef & Lamb Meat, Tomatoes, Onion, Pepper, Parsley & Turkish Spices — served with Onion Salad, Lemon & Tomatoes.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 350</div></div>
+        </div>
+      </article>
+      <article class="dish-card">
+        <div class="dish-photo" data-img="pide2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Turkish Pizza</div>
+          <div class="dish-desc">Authentic Turkish-style pizza, freshly prepared and baked to perfection.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">Medium <strong>Rs 525</strong></div>
+              <div class="pm-row">Large <strong>Rs 649</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Pide variants in list rows -->
+    <div class="pide-grid">
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Mince Pide</div>
+          <div class="pide-row-desc">Beef Meat, Lamb Meat, Onion, Pepper, Tomatoes, Parsley</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 525</div>
+          <div class="pide-price-cheese">with Cheese <strong>Rs 550</strong></div>
+        </div>
+      </div>
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Spinach Pide</div>
+          <div class="pide-row-desc">Spinach, Onions & Pepper</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 450</div>
+          <div class="pide-price-cheese">with Cheese <strong>Rs 525</strong></div>
+        </div>
+      </div>
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Vegetable Pide</div>
+          <div class="pide-row-desc">Tomatoes, Onion & Chili</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 450</div>
+          <div class="pide-price-cheese">with Cheese <strong>Rs 425</strong></div>
+        </div>
+      </div>
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Chicken Pide</div>
+          <div class="pide-row-desc">Chicken, Onion, Pepper & Tomatoes</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 425</div>
+          <div class="pide-price-cheese">with Cheese <strong>Rs 450</strong></div>
+        </div>
+      </div>
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Cheese Pide</div>
+          <div class="pide-row-desc">Classic Turkish pide generously loaded with cheese</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 450</div>
+        </div>
+      </div>
+
+      <div class="pide-row">
+        <div class="pide-row-info">
+          <div class="pide-row-name">Kosbasi Pide with Cheese</div>
+          <div class="pide-row-desc">Chicken, Onion, Cheese, Pepper & Tomatoes</div>
+        </div>
+        <div class="pide-row-prices">
+          <div class="pide-price-plain">Rs 550</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🐟  SEAFOOD                                 -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="seafood" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="seafood"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🐟</div>
+      <h2 class="section-title">Seafood</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="dish-grid dish-grid-2">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="fish1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Sultan Balik Fish</div>
+          <div class="dish-desc">Freshly prepared grilled fish, Sultan style — a delicate coastal dish reflecting Mauritius & the Aegean.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 500</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="fish2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Halka Fish</div>
+          <div class="dish-desc">Crispy ring-style fish — lightly seasoned and golden-fried to perfection.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 450</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🥗  MEZE & STARTERS                         -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="starters" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="starters"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🥗</div>
+      <h2 class="section-title">Meze &amp; Starters</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">The Turkish table always begins with meze — small bites that open the palate and invite conversation.</p>
+    <div class="dish-grid">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="hummus"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Hummus</div>
+          <div class="dish-desc">Made with chickpeas, tahini, lemon and spices — silky, rich and served with warm bread.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 230</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="meze1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Haydari</div>
+          <div class="dish-desc">Thick strained Yogurt with Mint, Olive Oil & garlic — served with bread.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 150</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="hummus"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Abagannus</div>
+          <div class="dish-desc">Grilled Eggplant, Grilled Bell Peppers, Onion, Oil, Turkish Spices & Parsley — served with Bread.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 200</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="meze2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-share">Sharing</span></div>
+          <div class="dish-name">Mixed Meze</div>
+          <div class="dish-desc">Hummus, Sarma, Eggplant, Chili Dolma & Haydari Abagannus — the full Turkish meze experience in one platter.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 450</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="soup1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Lentil Soup</div>
+          <div class="dish-desc">Lentil, Onion, Potatoes, Turkish Spices, Oil & Mint — served with bread & fresh lemon.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 199</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chips1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chips</div>
+          <div class="dish-desc">Made with our own fresh potatoes, cut and fried to a perfect golden crisp.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">Medium <strong>Rs 150</strong></div>
+              <div class="pm-row">Large <strong>Rs 199</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🥙  SALADS                                  -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="salads" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="salads"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🥙</div>
+      <h2 class="section-title">Salads</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="dish-grid">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="salad1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Coban Salad</div>
+          <div class="dish-desc">The Turkish shepherd's salad — crisp vegetables tossed in olive oil and lemon. Simple, fresh, and vibrant.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 350</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="salad2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chicken Salad</div>
+          <div class="dish-desc">Grilled chicken pieces over a bed of fresh greens and Mediterranean-inspired dressing.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 475</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="meze2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+          <div class="dish-name">Grilled Veg Plate</div>
+          <div class="dish-desc">Eggplant, Tomatoes, Onion, Garlic Chili — served with Chips & Rice.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 550</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🍲  TRADITIONAL TURKISH SPECIALTIES         -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="specials" class="menu-section">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="specials"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🍲</div>
+      <h2 class="section-title">Traditional Specialties</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="section-intro">Dishes rooted in centuries of Ottoman and Anatolian tradition — slow-cooked, deeply flavoured, and unforgettable.</p>
+    <div class="dish-grid">
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="special1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Iskender</div>
+          <div class="dish-desc">Lamb, Sauce, Yogurt & Bread — a dish born in Bursa, beloved across the empire.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 699</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="special2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-badges"><span class="badge badge-chef">Chef's Choice</span></div>
+          <div class="dish-name">Ali Nazik Chicken</div>
+          <div class="dish-desc">Roasted Egg Plant, Yogurt, Sauce & Butter — a pillar of Ottoman cuisine.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">1 person <strong>Rs 599</strong></div>
+              <div class="pm-row">2 persons <strong>Rs 899</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="chicken2"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Chicken Kofte</div>
+          <div class="dish-desc">Rice, Cheese, Bread, Onion Salad & Chili Sauce.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 450</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Kozleme</div>
+          <div class="dish-desc">A selection of Kebab & Chicken — grilled, layered and served the traditional way.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 925</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="kebab3"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Pirzola (Lamb)</div>
+          <div class="dish-desc">Grilled lamb chops, the Turkish way — fragrant, tender and served with sides.</div>
+          <div class="dish-footer"><div class="dish-price">Rs 700</div></div>
+        </div>
+      </article>
+
+      <article class="dish-card">
+        <div class="dish-photo" data-img="special1"><div class="dish-photo-overlay"></div></div>
+        <div class="dish-body">
+          <div class="dish-name">Güvec</div>
+          <div class="dish-desc">Traditional Turkish clay pot stew — slow-cooked to deepen every flavour.</div>
+          <div class="dish-footer">
+            <div class="dish-price-multi">
+              <div class="pm-row">Chicken <strong>Rs 499</strong></div>
+              <div class="pm-row">Lamb <strong>Rs 550</strong></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="section-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  🥤  DRINKS                                  -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="drinks" class="menu-section" style="padding-bottom:0">
+  <div class="section-banner">
+    <div class="section-banner-bg" data-banner="drinks"></div>
+    <div class="section-banner-overlay">
+      <div class="section-icon">🥤</div>
+      <h2 class="section-title">Drinks</h2>
+      <div class="ottoman-divider"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+    </div>
+  </div>
+  <div class="container" style="padding-bottom:90px">
+    <div class="drink-grid">
+
+      <article class="drink-card">
+        <div class="drink-photo" data-img="juice1"></div>
+        <div class="drink-body">
+          <div class="dish-name" style="margin-bottom:.5rem">Fresh Juice</div>
+          <div class="dish-desc" style="margin-bottom:1.1rem">Orange Juice or Cocktail Juice — freshly prepared.</div>
+          <div class="dish-price">Rs 150</div>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="drink-photo" data-img="coffee1"></div>
+        <div class="drink-body">
+          <div class="dish-badges" style="margin-bottom:.7rem"><span class="badge badge-free">Free After Meal</span></div>
+          <div class="dish-name" style="margin-bottom:.5rem">Turkish Coffee</div>
+          <div class="dish-desc" style="margin-bottom:1.1rem">Authentic Turkish coffee, traditionally brewed in a copper cezve and served with a piece of Turkish delight.</div>
+          <div class="dish-price">Rs 250</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="menu-footer">
+  <div class="menu-footer-logo">Halime' Sultan</div>
+  <div class="menu-footer-sub">Turkish Restaurant · Mauritius</div>
+  <div class="ottoman-divider" style="margin-bottom:1.8rem"><span class="ottoman-gem">✦ ◆ ✦</span></div>
+  <div class="menu-footer-contacts">
+    <div class="menu-footer-contact">Pointe aux Biches · <a href="tel:+2305712 5051">+230 5712 5051</a></div>
+    <div class="menu-footer-contact">Vacoas / Phoenix · <a href="tel:+23060674 63">+230 606 74 63</a></div>
+    <div class="menu-footer-contact"><a href="mailto:hamzaaltas80@gmail.com">hamzaaltas80@gmail.com</a></div>
+  </div>
+  <div class="menu-footer-copy">© 2026 Halime' Sultan Turkish Restaurant. All rights reserved.</div>
+</footer>
+
+<script>
+  /* ── FOOD PHOTO POOL (Unsplash, free to use) ── */
+  const PHOTOS = {
+    kebab1:   'photo-1544025162-d76694265947',
+    kebab2:   'photo-1529543544282-ea669407fca3',
+    kebab3:   'photo-1555939594-58d7cb561ad1',
+    chicken1: 'photo-1476224203421-9ac39bcb3327',
+    chicken2: 'photo-1599487488170-d11ec9c172f0',
+    platter:  'photo-1504674900247-0877df9cc836',
+    wrap1:    'photo-1555939594-58d7cb561ad1',
+    wrap2:    'photo-1476224203421-9ac39bcb3327',
+    pide1:    'photo-1565299624946-b28f40a0ae38',
+    pide2:    'photo-1574071318508-1cdbab80d002',
+    fish1:    'photo-1529543544282-ea669407fca3',
+    fish2:    'photo-1504674900247-0877df9cc836',
+    hummus:   'photo-1576506295286-5cda18df43e7',
+    meze1:    'photo-1547592180-85f173990554',
+    meze2:    'photo-1529059997568-3d847b1154f0',
+    soup1:    'photo-1547592180-85f173990554',
+    chips1:   'photo-1573080496219-bb964701c3f8',
+    salad1:   'photo-1512621776951-a57141f2eefd',
+    salad2:   'photo-1540189549336-e6e99c3679fe',
+    special1: 'photo-1555939594-58d7cb561ad1',
+    special2: 'photo-1476224203421-9ac39bcb3327',
+    juice1:   'photo-1621263764928-df1444c5e859',
+    coffee1:  'photo-1495474472287-4d71bcdd2085',
+  };
+
+  const BANNERS = {
+    chef:     'photo-1529543544282-ea669407fca3',
+    kebabs:   'photo-1544025162-d76694265947',
+    platters: 'photo-1504674900247-0877df9cc836',
+    wraps:    'photo-1555939594-58d7cb561ad1',
+    pide:     'photo-1565299624946-b28f40a0ae38',
+    seafood:  'photo-1476224203421-9ac39bcb3327',
+    starters: 'photo-1576506295286-5cda18df43e7',
+    salads:   'photo-1512621776951-a57141f2eefd',
+    specials: 'photo-1529543544282-ea669407fca3',
+    drinks:   'photo-1495474472287-4d71bcdd2085',
+  };
+
+  /* Apply dish photos */
+  document.querySelectorAll('[data-img]').forEach(el => {
+    const key = el.dataset.img;
+    const id  = PHOTOS[key];
+    if (id) el.style.backgroundImage = `url('https://images.unsplash.com/${id}?w=600&q=85')`;
+  });
+
+  /* Apply banner photos */
+  document.querySelectorAll('[data-banner]').forEach(el => {
+    const key = el.dataset.banner;
+    const id  = BANNERS[key];
+    if (id) el.style.backgroundImage = `url('https://images.unsplash.com/${id}?w=1400&q=80')`;
+  });
+
+  /* ── STICKY NAV: highlight active section ── */
+  const sections  = document.querySelectorAll('.menu-section[id]');
+  const navItems  = document.querySelectorAll('.cat-nav-item');
+  const navHeight = document.querySelector('.cat-nav').offsetHeight;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+        /* scroll nav item into view */
+        const activeLink = document.querySelector(`.cat-nav-item[href="#${id}"]`);
+        if (activeLink) activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    });
+  }, { rootMargin: `-${navHeight + 10}px 0px -55% 0px`, threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
