@@ -270,7 +270,18 @@
       .nav-links, .nav-order-btn { display: none; }
       .hamburger { display: flex; }
       .hero-btns { flex-direction: column; align-items: center; }
-      .menu-grid { grid-template-columns: 1fr; }
+      /* 3 cards per row on mobile */
+      .menu-grid { grid-template-columns: repeat(3, 1fr); gap: 0.55rem; }
+      .menu-card { border-radius: 8px; }
+      .menu-card-img { height: 92px; }
+      .menu-card-body { padding: 0.6rem 0.65rem 0.75rem; }
+      .menu-card-name { font-size: 0.78rem; margin-bottom: 0.3rem; }
+      .menu-card-desc { font-size: 0.66rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .menu-card-footer { margin-top: 0.55rem; flex-wrap: wrap; gap: 0.3rem; }
+      .menu-card-price { font-size: 0.92rem; }
+      .menu-card-tag { font-size: 0.55rem; padding: 2px 7px; }
+      .menu-card-price-multi .price-row { font-size: 0.66rem; }
+      .menu-card-price-multi .price-row strong { font-size: 0.82rem; }
     }
 
     /* ── RESERVE BANNER ── */
