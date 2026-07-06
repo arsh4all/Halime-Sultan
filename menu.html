@@ -293,7 +293,7 @@
       display: flex; align-items: center; justify-content: center; text-align: center;
       background:
         linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 100%),
-        url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1600&q=80') center/cover no-repeat;
+        url('menu/web/hero_commercial_poster.jpg') center/cover no-repeat;
       padding: 0 5%;
     }
     .hero-inner { max-width: 700px; }
@@ -1249,6 +1249,52 @@
   }, { rootMargin: `-${navHeight + 10}px 0px -55% 0px`, threshold: 0 });
 
   sections.forEach(s => io.observe(s));
+</script>
+
+<script>
+  /* ── REAL DISH PHOTOS (AI-enhanced photos of our actual dishes) ── */
+  (function () {
+    const P = 'menu/web/';
+    const dishMap = {
+      'Adana Kebab':'Adana_Kebab','Adana Wrap':'Adana_Wrap','Chicken Wrap':'Chicken_Wrap',
+      'Chicken Shish':'Chicken_Shish','Lamb Shish':'Lamb_Shish','Chicken Wings':'Chicken_Wings',
+      'Chicken Chops':'Chicken_Chops','Ezmeli Kebab':'Ezmeli_Kebab','Patlican Kebab':'Patlican_Kebab',
+      'Iskender':'Iskender','Kofte':'Kofte','Chicken Kofte':'Chicken_Kofte','Cheese Kofte':'Cheese_Kofte',
+      'Beyti Kebab':'Beyti_Kebab','Kozleme':'Kozleme','Pirzola (Lamb)':'Pirzola',
+      'Oven Wrap with Cheese — Lamb':'Oven_Wrap_With_Cheese','Oven Wrap with Cheese — Chicken':'Oven_Wrap_With_Cheese',
+      'Sultan Balik Fish':'Sultan_Balik_Fish','Halka Fish':'Halka_Fish','Grilled Veg Plate':'Grilled_Veg_Plate',
+      'Mince Pide':'Pide_Selection_1','Spinach Pide':'Pide_Selection_2','Vegetable Pide':'Pide_Selection_3',
+      'Chicken Pide':'Pide_Selection_4','Cheese Pide':'Pide_Selection_5','Kosbasi Pide with Cheese':'Pide_Selection_2',
+      'Turkish Pizza':'Turkish_Pizza','Lahmacun':'Lahmacun','Sultan Platter Signature':'Sultan_Platter_Signature',
+      'Sultan Mix Kebab':'Sultan_Mix_Kebab','Sultan Chicken Special':'Sultan_Chicken_Special',
+      'Sultan Chicken Special Platter':'Sultan_Chicken_Special_Platter','Ahi Special':'Ahi_Special',
+      'Ali Nazik Chicken':'Ali_Nazik_Chicken','Guvec Chicken (3 Pax)':'Guvec_Chicken_3_Pax','Güvec':'Guvec',
+      'Lentil Soup':'Lentil_Soup','Hummus':'Hummus','Haydari':'Haydari','Mixed Meze':'Mixed_Meze',
+      'Abagannus':'Abagannus','Coban Salad':'Coban_Salad','Chicken Salad':'Chicken_Salad',
+      'Turkish Coffee':'Turkish_Coffee','Fresh Juice':'Fresh_Juice','Chips':'Chips'
+    };
+    document.querySelectorAll('.dish-name').forEach(function (n) {
+      const file = dishMap[n.textContent.trim()];
+      if (!file) return;
+      let card = n.parentElement;
+      let photo = null;
+      for (let i = 0; i < 4 && card; i++) {
+        photo = card.querySelector('.dish-photo, .featured-photo, .drink-photo');
+        if (photo) break;
+        card = card.parentElement;
+      }
+      if (photo) photo.style.backgroundImage = "url('" + P + file + ".jpg')";
+    });
+    const bannerMap = {
+      chef:'Ezmeli_Kebab_Skewers_xl.jpg', kebabs:'Adana_Kebab_xl.jpg', platters:'Sultan_Platter_Signature_xl.jpg',
+      wraps:'Adana_Wrap.jpg', pide:'Turkish_Pizza.jpg', seafood:'Sultan_Balik_Fish.jpg',
+      starters:'Mixed_Meze.jpg', salads:'Coban_Salad.jpg', specials:'Ezmeli_Kebab_xl.jpg', drinks:'Turkish_Coffee_xl.jpg'
+    };
+    document.querySelectorAll('[data-banner]').forEach(function (el) {
+      const f = bannerMap[el.dataset.banner];
+      if (f) el.style.backgroundImage = "url('" + P + f + "')";
+    });
+  })();
 </script>
 </body>
 </html>
